@@ -1,0 +1,21 @@
+body {
+	font-size: 62.5%;
+}
+
+h1 {
+	font-size: 4.8rem;
+	font-family: $displayFont;
+	color: white;
+	text-shadow: 1px 1px 3px #000;
+	margin-bottom: 0;
+	margin-top:0;
+	margin-left: 0;
+}
+
+h2, h3, h4, h5, h6 {
+	font-family: $sansSerif;
+}
+
+button {
+	font-size: 1.5rem;
+}
