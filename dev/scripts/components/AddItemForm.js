@@ -4,11 +4,13 @@ class AddItemForm extends React.Component {
 	
 	constructor() {
 		super();
+		
 		this.titleRef = React.createRef();
 		this.creatorRef = React.createRef();
 		this.priorityRef = React.createRef();
 		this.descRef = React.createRef();
 		this.imageRef = React.createRef();
+		
 		this.addItem = this.addItem.bind(this);
 	}
 
@@ -19,11 +21,11 @@ class AddItemForm extends React.Component {
 		// taking all the refs from below and putting them into an "item" object
 		// console returns "Object" so need to do the object keys thing that wes did and then loop and display them. Maybe. First need to get all this into state!
 		const item = {
-			titleRef: this.titleRef.current.value,
-			creatorRef: this.creatorRef.current.value,
-			priorityRef: this.priorityRef.current.value,
-			descRef: this.descRef.current.value,
-			imageRef: this.imageRef.current.value
+			title: this.titleRef.current.value,
+			creator: this.creatorRef.current.value,
+			priority: this.priorityRef.current.value,
+			desc: this.descRef.current.value,
+			image: this.imageRef.current.value
 		}
 
 		console.log(item);
