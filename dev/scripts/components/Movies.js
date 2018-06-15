@@ -29,7 +29,12 @@ class Movies extends React.Component {
 		return ( <div>
 			<Header />
 			<h1>Movies</h1>
-			<AddItemForm placeholder="Movie Title" addItem={this.addItem} recType="Movie" />
+			<AddItemForm 
+				titlePlaceholder="Movie Title"
+				creatorPlaceholder="Director"
+				addItem={this.addItem}
+				recType="Movie" 
+			/>
 		</div>
 		)
 	}

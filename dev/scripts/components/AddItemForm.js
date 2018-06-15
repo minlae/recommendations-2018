@@ -4,9 +4,9 @@ class AddItemForm extends React.Component {
 	
 	constructor() {
 		super();
-		this.nameRef = React.createRef();
-		this.priceRef = React.createRef();
-		this.ratingRef = React.createRef();
+		this.titleRef = React.createRef();
+		this.creatorRef = React.createRef();
+		this.priorityRef = React.createRef();
 		this.descRef = React.createRef();
 		this.imageRef = React.createRef();
 		this.addItem = this.addItem.bind(this);
@@ -19,8 +19,9 @@ class AddItemForm extends React.Component {
 		// taking all the refs from below and putting them into an "item" object
 		// console returns "Object" so need to do the object keys thing that wes did and then loop and display them. Maybe. First need to get all this into state!
 		const item = {
-			nameRef: this.nameRef.current.value,
-			ratingRef: this.ratingRef.current.value,
+			titleRef: this.titleRef.current.value,
+			creatorRef: this.creatorRef.current.value,
+			priorityRef: this.priorityRef.current.value,
 			descRef: this.descRef.current.value,
 			imageRef: this.imageRef.current.value
 		}
@@ -34,10 +35,9 @@ class AddItemForm extends React.Component {
 		return (
 		<div>
 			<form className="submit" onSubmit={this.addItem}>
-				<input name="name" ref={this.nameRef} type="text" placeholder={this.props.placeholder} />
-				<select name="rating" ref={this.ratingRef}>
-					<option value="5" >&#9733; &#9733; &#9733; &#9733; &#9733;</option>
-					<option value="4" >&#9733; &#9733; &#9733; &#9733;</option>
+				<input name="title" ref={this.titleRef} type="text" placeholder={this.props.titlePlaceholder} />
+				<input name="creator" ref={this.creatorRef} type="text" placeholder={this.props.creatorPlaceholder} /> 
+				<select name="priority" ref={this.priorityRef}>
 					<option value="3" >&#9733; &#9733; &#9733;</option>
 					<option value="2" >&#9733; &#9733;</option>
 					<option value="1" >&#9733;</option>
