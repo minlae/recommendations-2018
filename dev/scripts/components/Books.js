@@ -4,17 +4,36 @@ import sampleBooks from '../sample-books';
 import AddItemForm from './AddItemForm';
 import ItemTitle from './ItemTitle';
 import ItemDetails from './ItemDetails';
+import { compareValues } from '../helper-functions';
 
 class Books extends React.Component {
+// for some reason I get an infinete loop if priority is true! I don't know why. It was working before.
 
 	constructor() {
 		super();
 		this.state = {
+			priority: true,
 			samples: false,
 			books: {}
 		}
 		this.addItem = this.addItem.bind(this);
 		this.loadBooks = this.loadBooks.bind(this);
+		this.sortPriority = this.sortPriority.bind(this);
+		this.sortAlpha = this.sortAlpha.bind(this);
+	}
+
+	componentDidMount() {
+		// Immidately have the books sorted by alphabetical order, in case there are any books in the state (for when there will be once we get data from Firebase)
+		// this.sortAlpha(); 
+		console.log('mounted');
+
+	}
+
+	componentDidUpdate() {
+		// Now also alphabetize books once they're updated
+		// ARG it works in a button (see below) but I'm not sure how to make it sort as soon as page loads or state is updated?
+		// () => this.sortAlpha();
+		console.log('updated');
 	}
 
 	addItem(book) {
@@ -44,6 +63,32 @@ class Books extends React.Component {
 		}
 	}
 
+	sortAlpha() {
+		const books = Object.assign({}, this.state.books);
+		const bookArray = Object.keys(books).map( key => (
+			books[key]
+		));		
+		const sortedBooks = bookArray.sort(compareValues('title', 'desc'));
+		console.log(sortedBooks)
+		this.setState({ books: sortedBooks });		
+	}
+
+	sortPriority(order='asc') {
+		const books = Object.assign({}, this.state.books);
+		
+		// below gives us an array of objects
+		const bookArray = Object.keys(books).map( key => (
+			books[key]
+		));
+		
+		const sortedBooks = bookArray.sort(compareValues('priority', order));
+		
+		this.state.priority ? this.setState({ priority: false }) : '';
+
+		console.log( sortedBooks );
+		this.setState({ books: sortedBooks });			
+	}
+
 
 // Styling: Cards with all info displayed.
 // If item is selected, should have a bg colour card (green?)
@@ -52,9 +97,14 @@ class Books extends React.Component {
 // Make item register that it's been clicked on / selected - done!!!!1
 // Make item show it's been seen - done
 
-// Also! Image should only display if there IS an image. Remove the broken image icon
+// Also! Image should only display if there IS an image. Remove the broken image icon - done
+// But may want to change in future so that if img is broken url also doesn't display.
 
-// Button to sort items from highest priority to lowest
+// Button to sort items from highest priority to lowest - DONE
+// By default items should be sorted alphabetically
+
+// maybe sort it first, then pass that info down to the ItemDetails
+// Or write a function for sorting. THEN call that function first / immeidately so that state is sorted. (maybe use a react lifecycle event) So it'll automatically be done everytime.
 
 	render() {
 
@@ -68,6 +118,12 @@ class Books extends React.Component {
 				recType="Book" 
 			/>
 			<button onClick={this.loadBooks}>{this.state.samples ? "Reset Sample Books" : "Load Sample Books"}</button>
+			{this.state.priority ? 
+				<button onClick={() => this.sortPriority('asc')}>High Priority</button> :
+				<button onClick={() => this.sortPriority('desc')}>Low Priority</button>
+			}
+			<button onClick={() => this.sortAlpha()}>Alpha</button>
+
 			<ul>
 				{ Object.keys(this.state.books).map( key => (
 					<ItemDetails

@@ -11,6 +11,14 @@ class ItemDetails extends React.Component {
 		this.isActive = this.isActive.bind(this);
 		this.notActive = this.notActive.bind(this);
 	}
+
+	componentDidMount() {
+		console.log('details mounted');
+	}
+
+	componentDidUpdate() {
+		console.log('details updated');
+	}
 	
 	isActive() {
 		// console.log(`clicked ${this.props.details.title}`);
@@ -31,6 +39,22 @@ class ItemDetails extends React.Component {
 		const priority = this.props.details.priority;
 		const seen = this.props.details.seen;
 		const active = this.state.active;
+		let stars;
+
+		// not sure how to render the stars instead of the number for HTML char...
+
+		// console.log(priority)
+		
+		if (priority=='3') {
+			stars = "★ ★ ★";
+			console.log('priority 3')
+		}else if (priority=='2') {
+			stars = "★ ★";
+		}else{
+			stars= "★";
+		}
+
+		// console.log(this.props.details);
 
 		return(
 		<li
@@ -41,7 +65,7 @@ class ItemDetails extends React.Component {
 			>
 			<h3>{title}</h3>
 			<h4>{creator}</h4>
-			<p>Priority: {priority}</p>
+			<p>Priority: { stars } </p>
 			{image ? <img src={image} alt={title} /> : '' }
 			<p>{desc}</p>
 		</li>
