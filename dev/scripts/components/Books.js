@@ -7,6 +7,12 @@ import ItemDetails from './ItemDetails';
 import { compareValues, removeDuplicates } from '../helper-functions';
 import base from '../base';
 
+// For now:
+// Add functionality that the previous version had
+// Compile list of changes
+// Maybe send to Evan and ask for his advice - but also on what else I could work on - obviously this is very beginner. Didn't even get to Redux yet! Can mention that I'm reading it now. Any excersize I could do (but first check to see if there already is an excersize to do)
+// ALSO! Need an edit/update item option!
+
 class Books extends React.Component {
 
 	constructor() {
@@ -17,6 +23,7 @@ class Books extends React.Component {
 			books: {}
 		}
 		this.addItem = this.addItem.bind(this);
+		this.removeItem = this.removeItem.bind(this);
 		this.loadBooks = this.loadBooks.bind(this);
 		this.sortPriority = this.sortPriority.bind(this);
 		this.sortAlpha = this.sortAlpha.bind(this);
@@ -54,6 +61,14 @@ class Books extends React.Component {
 		this.setState({
 			books
 		});
+	}
+
+	removeItem(key) {
+		console.log("removing book");
+
+		const books = Object.assign({}, this.state.books);
+		books[key] = null;
+		this.setState({ books });
 	}
 
 	loadBooks() {
@@ -146,6 +161,7 @@ class Books extends React.Component {
 								key={key}
 								details={this.state.books[key]}
 								index={key}
+								removeItem={this.removeItem}
 							/>
 						))}
 					</ul>

@@ -37,8 +37,8 @@ header {
 	display: flex;
 	flex-direction: column;
 	// border: 1px solid blue;
-	padding-left: 20px;
-	padding-right: 20px;
+	padding-left: 40px;
+	padding-right: 40px;
 	align-items: flex-start;
 }
 
@@ -47,11 +47,17 @@ header {
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: space-between;
+	padding-left: 0;
+
+	h3 {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
 
 	li {
 		width: 300px;
 		border-radius: 10px;
-		padding: 10px;
+		padding: 15px 20px;
 		margin-bottom: 15px;
 
 		img, .item-description {
@@ -68,6 +74,10 @@ header {
 
 	&.active {
 		background-color: $active-card;
+	}
+
+	&:hover {
+		cursor: pointer;
 	}
 }
 

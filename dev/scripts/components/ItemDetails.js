@@ -68,6 +68,7 @@ class ItemDetails extends React.Component {
 			<p>Priority: { stars } </p>
 			{image ? <img src={image} alt={title} /> : '' }
 			<p className="item-description">{desc}</p>
+			<button onClick={()=>this.props.removeItem(this.props.index)} className="app-btn-filled remove">Remove &#10008;</button>
 		</li>
 		)
 	}
