@@ -59,7 +59,7 @@ class ItemDetails extends React.Component {
 		return(
 		<li
 			onClick={this.isActive}
-			className={`item-card ${seen ? `seen-card` : ``} ${active ? `active` : `inactive`}`}
+			className={`item-card ${active?`active`:`inactive`} ${seen?`seen-card`:``}`}
 			tabIndex="0"
 			onBlur={this.notActive}
 			>
@@ -67,7 +67,7 @@ class ItemDetails extends React.Component {
 			<h4>{creator}</h4>
 			<p>Priority: { stars } </p>
 			{image ? <img src={image} alt={title} /> : '' }
-			<p>{desc}</p>
+			<p className="item-description">{desc}</p>
 		</li>
 		)
 	}

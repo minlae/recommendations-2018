@@ -4,6 +4,9 @@ import Movies from './Movies';
 import Books from './Books';
 
 
+// There must be a way to indicate an "active" page and then display the appropriate title.
+// How about a state? There are also ways to do it through Router I think.
+
 const Header = props => (
 	<header>
 		<nav className="header-menu">

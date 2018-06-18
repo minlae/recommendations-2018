@@ -10,12 +10,6 @@ header {
 		display: flex;
 		justify-content: space-between;
 		width: 300px;
-
-		.nav-link {
-			font-size: 1.5rem;
-			padding: 10px;
-			background-color: $main-accent;
-		}
 	}
 }
 
@@ -32,3 +26,61 @@ header {
 	}
 }
 
+
+// Containers and positioning with flex
+.items-main-container {
+	display: flex;
+	// border: 1px solid red;
+}
+
+.itemlist-container {
+	display: flex;
+	flex-direction: column;
+	// border: 1px solid blue;
+	padding-left: 20px;
+	padding-right: 20px;
+	align-items: flex-start;
+}
+
+.item-list {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+
+	li {
+		width: 300px;
+		border-radius: 10px;
+		padding: 10px;
+		margin-bottom: 15px;
+
+		img, .item-description {
+			max-width: 270px;
+		}
+		img {
+			max-height: 200px;
+		}
+	}
+}
+
+.item-card {
+	background-color: $main-bg-light;
+
+	&.active {
+		background-color: $active-card;
+	}
+}
+
+.sort-buttons-container {
+	display: flex;
+
+	.app-btn {
+		margin-right: 20px;
+	}
+}
+
+
+.view-title {
+	text-align: center;
+	margin-bottom: 100px;
+}

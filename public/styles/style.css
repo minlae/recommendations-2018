@@ -142,10 +142,6 @@ header {
     display: flex;
     justify-content: space-between;
     width: 300px; }
-    header .header-menu .nav-link {
-      font-size: 1.5rem;
-      padding: 10px;
-      background-color: #9FCED8; }
 
 .main-page {
   height: 100vh;
@@ -157,6 +153,45 @@ header {
     display: flex;
     justify-content: space-around;
     width: 40%; }
+
+.items-main-container {
+  display: flex; }
+
+.itemlist-container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  padding-right: 20px;
+  align-items: flex-start; }
+
+.item-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between; }
+  .item-list li {
+    width: 300px;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 15px; }
+    .item-list li img, .item-list li .item-description {
+      max-width: 270px; }
+    .item-list li img {
+      max-height: 200px; }
+
+.item-card {
+  background-color: #bdc5d3; }
+  .item-card.active {
+    background-color: #cfd8dc; }
+
+.sort-buttons-container {
+  display: flex; }
+  .sort-buttons-container .app-btn {
+    margin-right: 20px; }
+
+.view-title {
+  text-align: center;
+  margin-bottom: 100px; }
 
 body {
   font-size: 62.5%; }
@@ -174,14 +209,59 @@ h2, h3, h4, h5, h6 {
   font-family: "Lato", sans-serif; }
 
 h3 {
-  font-size: 1.5rem; }
+  font-size: 1.2rem; }
 
 h4 {
-  font-size: 1.2rem;
-  font-weight: bold; }
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  margin-top: 0; }
 
 button {
   font-size: 1.5rem; }
 
 ul {
   list-style-type: none; }
+
+a {
+  text-decoration: none;
+  color: #DFB23A; }
+  a:hover {
+    color: #F2F2F2; }
+  a:visited {
+    color: #DFB23A; }
+
+.nav-link {
+  text-decoration: none;
+  font-size: 1.5rem;
+  padding: 10px; }
+  .nav-link:hover {
+    color: #F2F2F2; }
+
+.app-btn {
+  background: transparent;
+  border: 2px solid black;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  margin-bottom: 10px; }
+
+.btn-label {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 10px; }
+
+.add-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  font-size: 1.2rem;
+  padding-left: 20px; }
+  .add-item label {
+    margin-bottom: 10px; }
+  .add-item input {
+    margin-bottom: 20px; }
+  .add-item textarea {
+    margin-bottom: 20px; }
+  .add-item select {
+    margin-bottom: 20px; }

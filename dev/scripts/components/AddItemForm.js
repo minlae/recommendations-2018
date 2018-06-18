@@ -36,17 +36,23 @@ class AddItemForm extends React.Component {
 	render() {
 		return (
 		<div>
-			<form className="submit" onSubmit={this.addItem}>
+			<form className="add-item" onSubmit={this.addItem}>
+				<label htmlFor="title">{this.props.titlePlaceholder}</label>
 				<input name="title" ref={this.titleRef} type="text" placeholder={this.props.titlePlaceholder} />
+				<label htmlFor="creator">{this.props.creatorPlaceholder}</label>
 				<input name="creator" ref={this.creatorRef} type="text" placeholder={this.props.creatorPlaceholder} /> 
+				<label htmlFor="priority">Priority</label>
 				<select name="priority" ref={this.priorityRef}>
 					<option value="3" >&#9733; &#9733; &#9733;</option>
 					<option value="2" >&#9733; &#9733;</option>
 					<option value="1" >&#9733;</option>
 				</select>
+				<label htmlFor="desc">Description</label>
 				<textarea name="desc" ref={this.descRef} placeholder="Desc" />
+				<label htmlFor="image">Image</label>
 				<input name="image" ref={this.imageRef} type="text" placeholder="Image" />
-				<button type="submit">Add {this.props.recType}</button>
+				<button className="app-btn" type="submit">Add {this.props.recType}</button>
+				<button className="app-btn" onClick={this.props.loadBooks}>{this.props.samples ? "Add Sample Books" : "Load Sample Books"}</button>
 			</form>
 		</div>
 		)

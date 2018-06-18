@@ -27,3 +27,11 @@ export function compareValues(key, order='asc') {
 	};
 	// Great tutorial on how to write this here: https://www.sitepoint.com/sort-an-array-of-objects-in-javascript/
 }
+
+export function removeDuplicates(myArr, prop) {
+    return myArr.filter((obj, pos, arr) => {
+        return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+    });
+	// Unfortunately this is for an array of objects. Might be a better idea to convert everything to array of objects.
+    // source: https://gist.github.com/Vheissu/71dd683ad647e82a0d132076cf6eeef2#file-duplicate-remover-js
+}

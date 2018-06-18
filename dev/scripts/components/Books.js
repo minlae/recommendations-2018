@@ -4,10 +4,10 @@ import sampleBooks from '../sample-books';
 import AddItemForm from './AddItemForm';
 import ItemTitle from './ItemTitle';
 import ItemDetails from './ItemDetails';
-import { compareValues } from '../helper-functions';
+import { compareValues, removeDuplicates } from '../helper-functions';
+import base from '../base';
 
 class Books extends React.Component {
-// for some reason I get an infinete loop if priority is true! I don't know why. It was working before.
 
 	constructor() {
 		super();
@@ -20,6 +20,11 @@ class Books extends React.Component {
 		this.loadBooks = this.loadBooks.bind(this);
 		this.sortPriority = this.sortPriority.bind(this);
 		this.sortAlpha = this.sortAlpha.bind(this);
+
+		this.ref = base.syncState(`book-recommendations`, {
+			context: this,
+			state: 'books'
+		});
 	}
 
 	componentDidMount() {
@@ -31,9 +36,9 @@ class Books extends React.Component {
 
 	componentDidUpdate() {
 		// Now also alphabetize books once they're updated
-		// ARG it works in a button (see below) but I'm not sure how to make it sort as soon as page loads or state is updated?
+		// Tricky: Without a proper conditional function, calling functions here causes an infinite loop. (From React docs) Why? Why is it creating an infinite loop? 
+		
 		// () => this.sortAlpha();
-		console.log('updated');
 	}
 
 	addItem(book) {
@@ -44,21 +49,27 @@ class Books extends React.Component {
 		const books = Object.assign({}, this.state.books);
 		books[`book${Date.now()}`] = book;
 		// the Date.now() gives it a unique number - date in milliseconds
+		// removeDuplicates(books);
+
 		this.setState({
 			books
 		});
 	}
 
 	loadBooks() {
-		// Note: Beware! This will overwrite any books you had in the state previously. But if you add a book one by one through AddItemForm, it will add it to state. It'll be lost if you hit the load sample books again though. Warning below.
+		// Note: Beware! Before Firebase - This will overwrite any books you had in the state previously. But if you add a book one by one through AddItemForm, it will add it to state. It'll be lost if you hit the load sample books again though. Warning below.
+
+		// Maybe new version should be an actual reset? Or somehow prevent duplicates? Hmm logic to prevent duplicates would be nice. A good QUESTION?
 		if (this.state.samples) {
-			if (confirm('Warning: This will delete all your custom books. Is this ok?')) {
+			if (confirm('This may duplicate books. Is this ok? ')) {
+				// removeDuplicates(sampleBooks);
 				this.setState({ books: sampleBooks });
 			} else {
 			    // Do nothing!
 			}
 		} else {
 			this.setState({ samples: true });
+			// removeDuplicates(sampleBooks);
 			this.setState({ books: sampleBooks });
 		}
 	}
@@ -110,29 +121,36 @@ class Books extends React.Component {
 
 		return ( <div>
 			<Header />
-			<h1>Books</h1>
-			<AddItemForm 
-				titlePlaceholder="Book Title" 
-				creatorPlaceholder="Author"
-				addItem={this.addItem} 
-				recType="Book" 
-			/>
-			<button onClick={this.loadBooks}>{this.state.samples ? "Reset Sample Books" : "Load Sample Books"}</button>
-			{this.state.priority ? 
-				<button onClick={() => this.sortPriority('asc')}>High Priority</button> :
-				<button onClick={() => this.sortPriority('desc')}>Low Priority</button>
-			}
-			<button onClick={() => this.sortAlpha()}>Alpha</button>
+			<h1 className="view-title">Books</h1>
+			<div className="items-main-container">
+				<AddItemForm 
+					titlePlaceholder="Book Title" 
+					creatorPlaceholder="Author"
+					loadBooks={this.loadBooks}
+					addItem={this.addItem} 
+					recType="Book" 
+				/>
+				<div className="itemlist-container">
+				<label className="btn-label">Sort Options</label>
+				<div className="sort-buttons-container">
+					{this.state.priority ? 
+						<button className="app-btn" onClick={() => this.sortPriority('asc')}>High Priority</button> :
+						<button className="app-btn" onClick={() => this.sortPriority('desc')}>Low Priority</button>
+					}
+					<button className="app-btn" onClick={() => this.sortAlpha()}>Alpha</button>
+				</div>
 
-			<ul>
-				{ Object.keys(this.state.books).map( key => (
-					<ItemDetails
-						key={key}
-						details={this.state.books[key]}
-						index={key}
-					/>
-				))}
-			</ul>
+					<ul className="item-list">
+						{ Object.keys(this.state.books).map( key => (
+							<ItemDetails
+								key={key}
+								details={this.state.books[key]}
+								index={key}
+							/>
+						))}
+					</ul>
+				</div>
+			</div>
 		</div>
 		)
 	}
