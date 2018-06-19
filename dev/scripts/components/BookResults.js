@@ -23,7 +23,8 @@ class BookResults extends React.Component {
 	render() {
 		const title = this.props.results.volumeInfo.title;
 		const author = this.props.results.volumeInfo.authors[0];
-		const image = this.props.results.volumeInfo.imageLinks.smallThumbnail;
+		const image = this.props.results.volumeInfo.imageLinks;
+		// the imageLinks is sometimes undefined and can break the app so have to check if imageLinks is undefined first before we use the URL for smallThumbnail.
 
 		return (
 			<li 
@@ -34,7 +35,7 @@ class BookResults extends React.Component {
 				>
 				<h3>{title}</h3>
 				<h4>{author}</h4>
-				{image ? <img src={image} alt={title} /> : null }
+				{(image === undefined) ? null : <img src={image.smallThumbnail} alt={title} /> }
 			</li>
 		)
 	}
