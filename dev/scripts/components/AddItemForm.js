@@ -32,8 +32,8 @@ class AddItemForm extends React.Component {
 		}
 
 		// console.log(item);
-		// this.props.addItem(item);
-		this.props.getBook(item.title);
+		this.props.addItem(item);
+		// this.props.getBook(item.title);
 		// This is where you would make the axios call with the item.title as the search field (see books and movies)
 		event.currentTarget.reset();
 	}
@@ -41,7 +41,8 @@ class AddItemForm extends React.Component {
 	render() {
 		return (
 		<div>
-			<form className="add-item" onSubmit={this.addItem}>
+			<form className="main-form" onSubmit={this.addItem}>
+			<legend>Add Book</legend>
 				<label htmlFor="title">{this.props.titlePlaceholder}</label>
 				<input required name="title" ref={this.titleRef} type="text" placeholder={this.props.titlePlaceholder} />
 				<label htmlFor="creator">{this.props.creatorPlaceholder}</label>

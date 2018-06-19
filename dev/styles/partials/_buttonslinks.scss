@@ -35,9 +35,12 @@ a {
 	font-size: 0.8rem;
 	padding: 8px 10px;
 	border: none;
+	font-weight: bold;
+	margin-top: 15px;
 
 	&.remove {
 		background: $danger;
+		margin-top: 0;
 	}
 }
 

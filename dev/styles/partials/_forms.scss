@@ -1,10 +1,21 @@
-.add-item {
+.main-form {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: flex-start;
 	font-size: 1.2rem;
-	padding-left: 20px;
+	padding: 20px 10px;
+	border-radius: 10px;
+	background-color: $accent;
+	margin-left: 20px;
+
+	legend {
+		font-size: 1.5rem;
+		display: block;
+		padding-left: 0;
+		margin-bottom: 12px;
+
+	}
 
 	label {
 		margin-bottom: 10px
@@ -17,5 +28,36 @@
 	}
 	select {
 		margin-bottom: 20px
+	}
+
+	&.search-section {
+		margin-bottom: 20px;
+
+		legend {
+			font-size: 1.2rem;
+			display: block;
+			// color: $accent-dark;
+			padding-left: 0;
+			margin-bottom: 20px;
+		}
+
+		label {
+			font-size: 1rem;
+			// color: $accent-dark;
+		}
+
+		input {
+			border-radius: 10px;
+			border: none;
+			padding: 10px;
+			width: 190px;
+			font-size: 1.1rem;
+		}
+
+		.app-btn {
+			// color: $accent-dark;
+			// border-color: $accent-dark;
+			font-size: 1rem;
+		}
 	}
 }
