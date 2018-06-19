@@ -1,16 +1,23 @@
 import React from 'react';
 import Header from './header';
 import AddItemForm from './AddItemForm';
+import MovieCatalogue from './MovieCatalogue';
+
+// doing movies as an array instead in order to see if there's a difference.
 
 class Movies extends React.Component {
 
 	constructor() {
 		super();
 		this.state = {
-			movies: {}
+			priority: true,
+			sample: false,
+			movies: []
 		}
 		this.addItem = this.addItem.bind(this);
 	}
+
+	// How about a PAGE COMING SOON. In the meantime, check out these recs from most popular movies!
 
 	addItem(movie) {
 		console.log("adding movie");
@@ -25,6 +32,8 @@ class Movies extends React.Component {
 		});
 	}
 
+
+
 	render() {
 		return ( <div>
 			<Header />
@@ -35,6 +44,7 @@ class Movies extends React.Component {
 				addItem={this.addItem}
 				recType="Movie" 
 			/>
+			<MovieCatalogue />
 		</div>
 		)
 	}

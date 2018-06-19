@@ -97,8 +97,18 @@ header {
 	}
 }
 
+.item-description {
+	font-size: 1rem;
+	height: 150px;
+	overflow: hidden;
+
+	&.show {
+		height: auto;
+	}
+}
+
 
 .view-title {
 	text-align: center;
-	margin-bottom: 100px;
+	margin-bottom: 50px;
 }

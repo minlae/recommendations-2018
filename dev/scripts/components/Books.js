@@ -2,7 +2,6 @@ import React from 'react';
 import Header from './Header';
 import sampleBooks from '../sample-books';
 import AddItemForm from './AddItemForm';
-import ItemTitle from './ItemTitle';
 import ItemDetails from './ItemDetails';
 import { compareValues, removeDuplicates } from '../helper-functions';
 import base from '../base';
@@ -66,10 +65,11 @@ class Books extends React.Component {
 
 	removeItem(key) {
 		// console.log("removing book");
-
-		const books = Object.assign({}, this.state.books);
-		books[key] = null;
-		this.setState({ books });
+		if (confirm('Are you sure you want to remove this book?')) {
+			const books = Object.assign({}, this.state.books);
+			books[key] = null;
+			this.setState({ books });
+		}else {}
 	}
 
 	//Q: Does this need to be inside componentDidMount?
@@ -90,23 +90,20 @@ class Books extends React.Component {
 		}).then((res)=> {
 			console.log(res);
 			console.log(res.data.items);
-			// does this need to be a temporary state? or something of the sort? Yah just set state to: [] when user selects a search result. 
 			let searchResults = res.data.items;
 			this.setState({
 				searchResults
 			});
 		}).catch((error) => {
-			console.log(error);
-			// not sure if this is working. Doesn't seem to be... Also if I want to do both author and book title search - maybe need multiple promises? Read up on that Pokemon stuff just to understand the concept
+			console.log(error.response);
+			// Question: This isn't working, I think? Or I'm misunderstanding. How do I log when a search fails?
 		});
 	};
 
 	loadBooks() {
-		// Note: Beware! Before Firebase - This will overwrite any books you had in the state previously. But if you add a book one by one through AddItemForm, it will add it to state. It'll be lost if you hit the load sample books again though. Warning below.
-
 		// Maybe new version should be an actual reset? Or somehow prevent duplicates? Hmm logic to prevent duplicates would be nice. A good QUESTION?
 		if (this.state.samples) {
-			if (confirm('This may duplicate books. Is this ok? ')) {
+			if (confirm('This may duplicate books. Is this ok?')) {
 				// removeDuplicates(sampleBooks);
 				this.setState({ books: sampleBooks });
 			} else {
@@ -154,6 +151,9 @@ class Books extends React.Component {
 // Make item show it's been seen - done
 
 // But may want to change in future so that if img is broken url also doesn't display.
+
+// How about a button: "See it on Google Books" or "Search Google Books" depending if it's from axios call.
+// Well you can have a secret property: source -- user or google books. And then use that?
 
 
 	render() {

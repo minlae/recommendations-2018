@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 // In future: can do autocomplete: https://github.com/JedWatson/react-select
 
 
@@ -66,10 +67,23 @@ class BookResults extends React.Component {
 				<h3>{title}</h3>
 				<h4>{author}</h4>
 				{(image === undefined) ? null : <img src={image.smallThumbnail} alt={title} /> }
-				<button onClick={() => this.addResult(title, author, image.smallThumbnail, desc)} className="app-btn-filled">Select Book</button>
+				<button onClick={() => this.addResult(title, author, image.smallThumbnail, desc)} className="app-btn-filled">Add To Books</button>
 			</li>
 		)
 	}
 }
+
+BookResults.propTypes = {
+	results: PropTypes.shape({
+		volumeInfo: PropTypes.shape({
+			title: PropTypes.string,
+			authors: PropTypes.string,
+			imageLinks: PropTypes.string,
+			desc: PropTypes.string
+		})
+	}),
+	addItem: PropTypes.func
+}
+
 
 export default BookResults;

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 
 class AddItemForm extends React.Component {
 	
@@ -54,7 +54,7 @@ class AddItemForm extends React.Component {
 					<option value="1" >&#9733;</option>
 				</select>
 				<label htmlFor="addedBy">Added by</label>
-				<input name="addedBy" ref={this.addedByRef} type="text" placeholder="Added by" />
+				<input name="addedBy" ref={this.addedByRef} type="text" placeholder="Added by"/>
 				<label htmlFor="desc">Description</label>
 				<textarea name="desc" ref={this.descRef} placeholder="Desc" />
 				<label htmlFor="image">Image</label>
@@ -65,6 +65,14 @@ class AddItemForm extends React.Component {
 		</div>
 		)
 	}
+}
+
+AddItemForm.propTypes = {
+	titlePlaceholder: PropTypes.string,
+	creatorPlaceholder: PropTypes.string,
+	recType: PropTypes.string,
+	samples: PropTypes.bool,
+	addItem: PropTypes.func
 }
 
 export default AddItemForm;
