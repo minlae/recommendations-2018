@@ -232,9 +232,16 @@ header {
   .sort-buttons-container .app-btn {
     margin-right: 20px; }
 
+.item-description {
+  font-size: 1rem;
+  height: 150px;
+  overflow: hidden; }
+  .item-description.show {
+    height: auto; }
+
 .view-title {
   text-align: center;
-  margin-bottom: 100px; }
+  margin-bottom: 50px; }
 
 a {
   text-decoration: none;
@@ -270,11 +277,20 @@ a {
   .app-btn-filled.remove {
     background: #ccb9bc;
     margin-top: 0; }
+  .app-btn-filled.toggle {
+    margin-top: 0; }
 
 .btn-label {
   font-weight: bold;
   font-size: 1rem;
   margin-bottom: 10px; }
+
+.btn-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-end; }
 
 .main-form {
   display: flex;
