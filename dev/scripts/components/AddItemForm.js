@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 class AddItemForm extends React.Component {
 	
 	constructor() {
@@ -10,7 +11,7 @@ class AddItemForm extends React.Component {
 		this.priorityRef = React.createRef();
 		this.descRef = React.createRef();
 		this.imageRef = React.createRef();
-		
+
 		this.addItem = this.addItem.bind(this);
 	}
 
@@ -28,8 +29,10 @@ class AddItemForm extends React.Component {
 			image: this.imageRef.current.value
 		}
 
-		console.log(item);
-		this.props.addItem(item);
+		// console.log(item);
+		// this.props.addItem(item);
+		this.props.getBook(item.title);
+		// This is where you would make the axios call with the item.title as the search field (see books and movies)
 		event.currentTarget.reset();
 	}
 
