@@ -9,12 +9,7 @@ import axios from 'axios';
 import BookResults from './BookResults';
 import SearchBookForm from './SearchBookForm';
 
-// For now:
-// Add functionality that the previous version had
-// Compile list of changes
-// Maybe send to Evan and ask for his advice - but also on what else I could work on - obviously this is very beginner. Didn't even get to Redux yet! Can mention that I'm reading it now. Any excersize I could do (but first check to see if there already is an excersize to do)
-// ALSO! Need an edit/update item option!
-// Also a SEEN button and a "who added it" button for future - but maybe once auth is done etc.
+
 
 class Books extends React.Component {
 
