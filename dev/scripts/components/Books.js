@@ -23,7 +23,7 @@ class Books extends React.Component {
 		this.state = {
 			priority: true,
 			samples: false,
-			showResults: true,
+			searchResults: [],
 			books: {}
 		}
 		this.addItem = this.addItem.bind(this);
@@ -81,29 +81,35 @@ class Books extends React.Component {
 	getBook(bookTitle) {
 		// const movieKey = "b8b83ba71713f763aef645ce0a40da06";
 		// const bookKey = "AIzaSyCzmy3LAli_4J8VGAHaAfdkCL3xC_4iVlE";
+		// tried adding a second parameter for bookAuthor and then specificying ${bookAuthor} inauthor in the query below but it doesn't give the right results, especially if you leave it blank!
 		axios({
+			method: `get`,
 			url: `https://www.googleapis.com/books/v1/volumes`,
 			params: {
 				api_key: `AIzaSyCzmy3LAli_4J8VGAHaAfdkCL3xC_4iVlE`,
 				q: `${bookTitle} intitle`,
-				langRestrict: `en`
+				langRestrict: `en`,
+				maxResults: 6,
+				printType: `books`
 			}
 		}).then((res)=> {
 			console.log(res);
-			console.log(bookTitle);
-			// this.setState({
-			// 	movies: res.data.results
-			// });
+			console.log(res.data.items);
+			// does this need to be a temporary state? or something of the sort? Yah just set state to: [] when user selects a search result. 
+			// display these 3 results then can either select one or can say "add my own" to cancel
+			let searchResults = res.data.items;
+			this.setState({
+				searchResults
+			});
+		}).catch((error) => {
+			console.log(error);
+			// not sure if this is working. Doesn't seem to be... Also if I want to do both author and book title search - maybe need multiple promises? Read up on that Pokemon stuff just to understand the concept
 		});
 	};
-
 
 	// Ok now what. We've searched for the book and got it. Where does the "did you mean this one? Appear"
 	// Select book that you mean: 1 2 3 4
 	// In future: can do autocomplete: https://github.com/JedWatson/react-select
-
-
-
 
 	loadBooks() {
 		// Note: Beware! Before Firebase - This will overwrite any books you had in the state previously. But if you add a book one by one through AddItemForm, it will add it to state. It'll be lost if you hit the load sample books again though. Warning below.
@@ -143,11 +149,15 @@ class Books extends React.Component {
 		
 		const sortedBooks = bookArray.sort(compareValues('priority', order));
 		
-		this.state.priority ? this.setState({ priority: false }) : '';
+		this.state.priority ? this.setState({ priority: false }) : null;
 
 		console.log( sortedBooks );
 		this.setState({ books: sortedBooks });			
 	}
+	
+
+	// Also add a Sort "most recent" using index and "items uploaded by USER"
+	// But first - check to see if I can somehow make it work with the network calls.
 
 
 // Styling: Cards with all info displayed.
@@ -168,6 +178,9 @@ class Books extends React.Component {
 
 	render() {
 
+		// loop over the results and spit out 4 results.
+
+
 		return ( <div>
 			<Header />
 			<h1 className="view-title">Books</h1>
@@ -181,6 +194,19 @@ class Books extends React.Component {
 					getBook={this.getBook}
 				/>
 				<div className="itemlist-container">
+					{ (this.state.searchResults && this.state.searchResults.length > 0) ? 
+						<div>
+							<h3>Choose a book:</h3>
+							<ul className="item-list">
+							{ this.state.searchResults.map( book => (
+								<BookResults 
+									results={book}
+									key={book.id}
+								/> 
+								))}
+							</ul>
+						</div>
+						: null}
 					<label className="btn-label">Sort Options</label>
 					<div className="sort-buttons-container">
 						{this.state.priority ? 
@@ -189,7 +215,6 @@ class Books extends React.Component {
 						}
 						<button className="app-btn" onClick={() => this.sortAlpha()}>Alpha</button>
 					</div>
-					{ this.state.showResults ? <BookResults /> : null}
 					<ul className="item-list">
 						{ Object.keys(this.state.books).map( key => (
 							<ItemDetails

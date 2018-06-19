@@ -13,11 +13,11 @@ class ItemDetails extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log('details mounted');
+		// console.log('details mounted');
 	}
 
 	componentDidUpdate() {
-		console.log('details updated');
+		// console.log('details updated');
 	}
 	
 	isActive() {
@@ -37,6 +37,7 @@ class ItemDetails extends React.Component {
 		const image = this.props.details.image;
 		const desc = this.props.details.desc;
 		const priority = this.props.details.priority;
+		const addedBy = this.props.details.addedBy;
 		const seen = this.props.details.seen;
 		const active = this.state.active;
 		let stars;
@@ -59,14 +60,15 @@ class ItemDetails extends React.Component {
 		return(
 		<li
 			onClick={this.isActive}
-			className={`item-card ${active?`active`:`inactive`} ${seen?`seen-card`:``}`}
-			tabIndex="0"
+			className={`item-card ${active?`active`:null} ${seen?`seen-card`:null}`}
+			tabIndex='0'
 			onBlur={this.notActive}
 			>
 			<h3>{title}</h3>
 			<h4>{creator}</h4>
 			<p>Priority: { stars } </p>
-			{image ? <img src={image} alt={title} /> : '' }
+			<p>Added by {addedBy}</p>
+			{image ? <img src={image} alt={title} /> : null }
 			<p className="item-description">{desc}</p>
 			<button onClick={()=>this.props.removeItem(this.props.index)} className="app-btn-filled remove">Remove &#10008;</button>
 		</li>
