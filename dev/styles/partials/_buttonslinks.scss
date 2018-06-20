@@ -1,12 +1,12 @@
 a {
 	text-decoration: none;
-	color: $links;
+	color: $links-light;
 	
 	&:hover {
 		color: $links-hover;
 	}	
 	&:visited {
-		color: $links;
+		color: $links-light;
 	}
 }
 
@@ -29,6 +29,14 @@ a {
 	padding: 5px;
 }
 
+.app-btn-main {
+	border-color: $links-light;
+	padding: 20px 25px;
+	&:hover{
+		background-color: rgba(91, 147, 174, 0.6);
+	}
+}
+
 .app-btn-filled {
 	background: $main-accent;
 	border-radius: 10px;
@@ -43,12 +51,17 @@ a {
 		margin-top: 0;
 	}
 
+	&.cancel {
+		margin-top: 0;
+		background: $danger;
+		margin-left: 5px;
+		font-size: 1rem;
+	}
+
 	&.toggle {
 		margin-top: 0;
 	}
 }
-
-
 
 .btn-label {
 	font-weight: bold;
@@ -62,5 +75,4 @@ a {
 	width: 100%;
 	justify-content: space-between;
 	align-items: flex-end;
-
 }

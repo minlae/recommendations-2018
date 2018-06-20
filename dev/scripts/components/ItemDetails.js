@@ -70,10 +70,7 @@ class ItemDetails extends React.Component {
 		const editing = this.state.editing;
 		let stars;
 
-		// not sure how to render the stars instead of the number for HTML char...
-
-		// console.log(priority)
-		
+		// not sure how to render the stars instead of the number for HTML char. This is the best way I could find for now. Could use someting like Font Awesome for icons.
 		if (priority=='3') {
 			stars = "★ ★ ★";
 			console.log('priority 3')
@@ -84,11 +81,6 @@ class ItemDetails extends React.Component {
 		}
 
 		// console.log(this.props.details);
-
-		// when you click on li, set state to EDITING (this particular item ID)
-		// so need to find a way to get item ID to state... just get its props :)
-		// then if state editing is on, the h3s etc should be changed to input fields with values filled in
-		// then a submit button that sets editing back to null
 
 		// Question: The updating is super slow. Why? Is it my environment? 
 		

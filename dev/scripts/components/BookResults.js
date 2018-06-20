@@ -64,8 +64,8 @@ class BookResults extends React.Component {
 				tabIndex='0'
 				onBlur={this.notActive}
 				>
-				<h3>{title}</h3>
-				<h4>{author}</h4>
+				{(title=== undefined) ? null : <h3>{title}</h3> }
+				{(author === undefined) ? null : <h4>{author}</h4> }
 				{(image === undefined) ? null : <img src={image.smallThumbnail} alt={title} /> }
 				<button onClick={() => this.addResult(title, author, image.smallThumbnail, desc)} className="app-btn-filled">Add To Books</button>
 			</li>
@@ -77,8 +77,11 @@ BookResults.propTypes = {
 	results: PropTypes.shape({
 		volumeInfo: PropTypes.shape({
 			title: PropTypes.string,
-			authors: PropTypes.string,
-			imageLinks: PropTypes.string,
+			authors: PropTypes.oneOfType([
+				PropTypes.string,
+				PropTypes.array
+			]),
+			imageLinks: PropTypes.object,
 			desc: PropTypes.string
 		})
 	}),

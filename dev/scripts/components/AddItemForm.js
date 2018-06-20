@@ -17,7 +17,6 @@ class AddItemForm extends React.Component {
 	}
 
 	addItem(event) {
-		// 1. stop form from default submitting
 		event.preventDefault();
 
 		// taking all the refs from below and putting them into an "item" object
@@ -42,9 +41,9 @@ class AddItemForm extends React.Component {
 		return (
 		<div>
 			<form className="main-form" onSubmit={this.addItem}>
-			<legend>Add Book</legend>
+			<legend>Add {this.props.recType}</legend>
 				<label htmlFor="title">{this.props.titlePlaceholder}</label>
-				<input required name="title" ref={this.titleRef} type="text" placeholder={this.props.titlePlaceholder} />
+				<input name="title" ref={this.titleRef} type="text" placeholder={this.props.titlePlaceholder} />
 				<label htmlFor="creator">{this.props.creatorPlaceholder}</label>
 				<input name="creator" ref={this.creatorRef} type="text" placeholder={this.props.creatorPlaceholder} /> 
 				<label htmlFor="priority">Priority</label>
@@ -60,7 +59,8 @@ class AddItemForm extends React.Component {
 				<label htmlFor="image">Image</label>
 				<input name="image" ref={this.imageRef} type="text" placeholder="Image" />
 				<button className="app-btn" type="submit">Add {this.props.recType}</button>
-				<button className="app-btn" onClick={this.props.loadBooks}>{this.props.samples ? "Add Sample Books" : "Load Sample Books"}</button>
+				{(this.props.movie) ? null : <button className="app-btn" onClick={this.props.loadSamples}>{this.props.samples ? `Add Sample ${this.props.recType}s` : `Load Sample ${this.props.recType}s`}</button>
+				}
 			</form>
 		</div>
 		)

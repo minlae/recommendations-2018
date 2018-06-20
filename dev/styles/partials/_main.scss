@@ -13,20 +13,6 @@ header {
 	}
 }
 
-.main-page {
-	height: 100vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	.button-container {
-		display: flex;
-		justify-content: space-around;
-		width: 40%;
-	}
-}
-
-
 // Containers and positioning with flex
 .items-main-container {
 	display: flex;
@@ -111,4 +97,12 @@ header {
 .view-title {
 	text-align: center;
 	margin-bottom: 50px;
+}
+
+.search-options {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	
 }

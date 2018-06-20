@@ -1,0 +1,25 @@
+.temp-description {
+	padding: 20px;
+	background-color: $main-bg-light;
+	border-radius: 10px;
+	width: 60%;
+	margin: 0 auto;
+	font-size: 1.2rem;
+	margin-bottom: 50px;
+}
+
+.movie-catalogue {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	width: 100%;
+
+	.movie-item {
+		border: none;
+		width: 400px;
+		img {
+			max-width: 100%;
+		}
+	}
+}

@@ -173,17 +173,6 @@ header {
     justify-content: space-between;
     width: 300px; }
 
-.main-page {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column; }
-  .main-page .button-container {
-    display: flex;
-    justify-content: space-around;
-    width: 40%; }
-
 .items-main-container {
   display: flex; }
 
@@ -243,13 +232,40 @@ header {
   text-align: center;
   margin-bottom: 50px; }
 
+.search-options {
+  display: flex;
+  flex-direction: row;
+  align-items: center; }
+
+.main-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-image: url("../images/new_header.jpg");
+  background-size: cover;
+  background-repeat: no-repeat; }
+  .main-page .main-page-container {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(141, 149, 162, 0.6);
+    padding: 30px 0;
+    border-radius: 10px; }
+    .main-page .main-page-container .button-container {
+      display: flex;
+      justify-content: space-around;
+      width: 60%; }
+
 a {
   text-decoration: none;
-  color: #DFB23A; }
+  color: #ffe46b; }
   a:hover {
     color: #F2F2F2; }
   a:visited {
-    color: #DFB23A; }
+    color: #ffe46b; }
 
 .nav-link {
   text-decoration: none;
@@ -266,6 +282,12 @@ a {
   margin-bottom: 5px;
   padding: 5px; }
 
+.app-btn-main {
+  border-color: #ffe46b;
+  padding: 20px 25px; }
+  .app-btn-main:hover {
+    background-color: rgba(91, 147, 174, 0.6); }
+
 .app-btn-filled {
   background: #d1d9ff;
   border-radius: 10px;
@@ -277,6 +299,11 @@ a {
   .app-btn-filled.remove {
     background: #ccb9bc;
     margin-top: 0; }
+  .app-btn-filled.cancel {
+    margin-top: 0;
+    background: #ccb9bc;
+    margin-left: 5px;
+    font-size: 1rem; }
   .app-btn-filled.toggle {
     margin-top: 0; }
 
@@ -357,3 +384,24 @@ a {
     height: 150px;
     overflow: scroll;
     width: 100%; }
+
+.temp-description {
+  padding: 20px;
+  background-color: #bdc5d3;
+  border-radius: 10px;
+  width: 60%;
+  margin: 0 auto;
+  font-size: 1.2rem;
+  margin-bottom: 50px; }
+
+.movie-catalogue {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%; }
+  .movie-catalogue .movie-item {
+    border: none;
+    width: 400px; }
+    .movie-catalogue .movie-item img {
+      max-width: 100%; }

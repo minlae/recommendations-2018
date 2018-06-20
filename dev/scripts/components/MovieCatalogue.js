@@ -22,7 +22,7 @@ class MovieCatalogue extends React.Component {
 				include_adult: `false`,
 				include_video: `false`,
 				page: `1`,
-				primary_release_year: `2015`
+				primary_release_year: `2018`
 
 			}
 		}).then((res)=> {
@@ -37,7 +37,7 @@ class MovieCatalogue extends React.Component {
 		return (<div className='movie-catalogue'>
 		    {this.state.movies.map((movie, i) => {
 		        return (
-		            <div key={movie.id} className='movie-catalogue__movie'>
+		            <div key={movie.id} className='movie-item'>
 		                <img src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
 		            </div>
 		        )

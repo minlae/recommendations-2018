@@ -12,6 +12,7 @@ class SearchBookForm extends React.Component {
 
 	getBook(event) {
 		event.preventDefault();
+		// Question: Need to first clear state searchresults with this.props.resetSearch(). But need to review how to ensure that this happens before the state changes below. Review?
 		const book = {
 			title: this.bookSearchRef.current.value,
 		}

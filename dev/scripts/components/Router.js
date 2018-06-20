@@ -8,7 +8,7 @@ import Header from './Header';
 const Router = () => (
 	<BrowserRouter>
 		<Switch>
-			<Route exact path="/" component={Books} />
+			<Route exact path="/" component={App} />
 			<Route exact path="/movies" component={Movies} />
 			<Route exact path="/books" component={Books} />
 			<Route component= {App} />

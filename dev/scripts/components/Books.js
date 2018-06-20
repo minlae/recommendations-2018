@@ -76,6 +76,7 @@ class Books extends React.Component {
 		});
 	}
 
+
 	//Q: Does this need to be inside componentDidMount?
 	searchBook(bookTitle) {
 		// const movieKey = "b8b83ba71713f763aef645ce0a40da06";
@@ -171,15 +172,19 @@ class Books extends React.Component {
 					<AddItemForm 
 						titlePlaceholder="Book Title" 
 						creatorPlaceholder="Author"
-						loadBooks={this.loadBooks}
+						loadSamples={this.loadBooks}
 						addItem={this.addItem} 
 						recType="Book"
+						movie={false}
 					/>
 				</div>
 				<div className="itemlist-container">
 					{ (this.state.searchResults && this.state.searchResults.length > 0) ? 
 						<div>
-							<h3>Choose a book:</h3>
+							<div className="search-options">
+								<h3>Choose a book or</h3>
+								<button className="app-btn-filled cancel" onClick={this.resetSearch}>Cancel</button>
+							</div>
 							<ul className="item-list">
 							{ this.state.searchResults.map( book => (
 								<BookResults 
@@ -190,7 +195,6 @@ class Books extends React.Component {
 								/> 
 								))}
 							</ul>
-							<button>Use my own book</button>
 						</div>
 						: null}
 					<label className="btn-label">Sort Options</label>
