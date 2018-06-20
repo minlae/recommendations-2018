@@ -1,13 +1,13 @@
 import React from 'react';
+import axios from 'axios';
 import Header from './Header';
 import sampleBooks from '../sample-books';
 import AddItemForm from './AddItemForm';
 import ItemDetails from './ItemDetails';
-import { compareValues, removeDuplicates } from '../helper-functions';
-import base from '../base';
-import axios from 'axios';
 import BookResults from './BookResults';
 import SearchBookForm from './SearchBookForm';
+import base from '../base';
+import { compareValues } from '../helper-functions';
 
 
 
@@ -23,6 +23,7 @@ class Books extends React.Component {
 		}
 		this.addItem = this.addItem.bind(this);
 		this.removeItem = this.removeItem.bind(this);
+		this.editItem = this.editItem.bind(this);
 		this.loadBooks = this.loadBooks.bind(this);
 		this.sortPriority = this.sortPriority.bind(this);
 		this.sortAlpha = this.sortAlpha.bind(this);
@@ -39,7 +40,7 @@ class Books extends React.Component {
 
 	addItem(book) {
 		// console.log("adding book");
-		// I think my dependencies can't handle the newest es/js stuff so this object spread syntax does not work. Have to use Object.assign instead. It creates a copy of the object because you never want to change state directly. "Treat state as immutable".
+		// I think my environment can't handle the newest es/js stuff so this object spread syntax does not work. Have to use Object.assign instead. It creates a copy of the object because you never want to change state directly. "Treat state as immutable".
 		// const books = { ...this.state.books };
 		// Note in previous version of project, the books were an array in state. And instead of creating an object copy, I created a new array and pushed the objects into it and then set that array as the new state.
 		const books = Object.assign({}, this.state.books);
@@ -52,12 +53,6 @@ class Books extends React.Component {
 		});
 	}
 
-	resetSearch() {
-		this.setState({
-			searchResults: []
-		});
-	}
-
 	removeItem(key) {
 		// console.log("removing book");
 		if (confirm('Are you sure you want to remove this book?')) {
@@ -65,6 +60,20 @@ class Books extends React.Component {
 			books[key] = null;
 			this.setState({ books });
 		}else {}
+	}
+
+	editItem(key, updatedBook) {
+		const books = Object.assign({}, this.state.books);
+		books[key] = updatedBook;
+		this.setState({ books })
+		// console.log(updatedBook);
+		// console.log(books[key]);
+	}
+
+	resetSearch() {
+		this.setState({
+			searchResults: []
+		});
 	}
 
 	//Q: Does this need to be inside componentDidMount?
@@ -96,7 +105,7 @@ class Books extends React.Component {
 	};
 
 	loadBooks() {
-		// Maybe new version should be an actual reset? Or somehow prevent duplicates? Hmm logic to prevent duplicates would be nice. A good QUESTION?
+		// QUESTION: Maybe new version should be an actual reset? Or somehow prevent duplicates? Hmm logic to prevent duplicates would be nice.
 		if (this.state.samples) {
 			if (confirm('This may duplicate books. Is this ok?')) {
 				// removeDuplicates(sampleBooks);
@@ -105,9 +114,12 @@ class Books extends React.Component {
 			    // Do nothing!
 			}
 		} else {
-			this.setState({ samples: true });
+			this.setState({ 
+				samples: true,
+				books: sampleBooks 
+			});
 			// removeDuplicates(sampleBooks);
-			this.setState({ books: sampleBooks });
+			// this.setState({ books: sampleBooks });
 		}
 	}
 
@@ -133,13 +145,10 @@ class Books extends React.Component {
 		
 		this.state.priority ? this.setState({ priority: false }) : null;
 
-		console.log( sortedBooks );
+		// console.log( sortedBooks );
 		this.setState({ books: sortedBooks });			
 	}
-	
-
 	// Also add a Sort "most recent" using index and "items uploaded by USER"
-	// But first - check to see if I can somehow make it work with the network calls.
 
 
 // If item is marked as seen, shoudl have a different bg colour (gray? or have a big "SEEN" overlay?)
@@ -149,7 +158,6 @@ class Books extends React.Component {
 
 // How about a button: "See it on Google Books" or "Search Google Books" depending if it's from axios call.
 // Well you can have a secret property: source -- user or google books. And then use that?
-
 
 	render() {
 		return ( <div>
@@ -198,6 +206,8 @@ class Books extends React.Component {
 							<ItemDetails
 								key={key}
 								details={this.state.books[key]}
+								books={this.state.books}
+								editItem={this.editItem}
 								index={key}
 								removeItem={this.removeItem}
 							/>

@@ -7,22 +7,44 @@ class ItemDetails extends React.Component {
 		super();
 		this.state = {
 			active: false,
-			showDescription: false
+			showDescription: false,
+			editing: false
 		}
 		
 		this.isActive = this.isActive.bind(this);
 		this.notActive = this.notActive.bind(this);
 		this.showDescription = this.showDescription.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 	
 	isActive() {
 		// console.log(`clicked ${this.props.details.title}`);
-		this.setState({ active: true });
+		this.setState({ 
+			active: true,
+			editing: true
+		});
 	}
-
 	notActive() {
 		// console.log(`not active ${this.props.details.title}`);
-		this.setState({ active: false });
+		this.setState({ 
+			active: false,
+			// editing: false
+		});
+	}
+
+
+	handleChange(event) {
+		// const index = this.props.index;
+		const updatedBooks = Object.assign({[event.currentTarget.name]: event.currentTarget.value }, this.props.books);
+		// console.log(event.currentTarget.name);
+		// [event.currentTarget.name]: event.currentTarget.value 
+		// console.log(this.props.index);
+		this.props.editItem(this.props.index, updatedBooks);
+	}
+
+	handleSubmit(event) {
+		this.setState({ editing: false });
 	}
 
 	showDescription() {
@@ -44,6 +66,7 @@ class ItemDetails extends React.Component {
 		const seen = this.props.details.seen;
 		const active = this.state.active;
 		const showDescription = this.state.showDescription;
+		const editing = this.state.editing;
 		let stars;
 
 		// not sure how to render the stars instead of the number for HTML char...
@@ -61,25 +84,59 @@ class ItemDetails extends React.Component {
 
 		// console.log(this.props.details);
 
-		return(
-		<li
-			onClick={this.isActive}
-			className={`item-card ${active?`active`:null} ${seen?`seen-card`:null}`}
-			tabIndex='0'
-			onBlur={this.notActive}
-			>
-			<h3>{title}</h3>
-			<h4>{creator}</h4>
-			<p>Priority: { stars } </p>
-			{ addedBy?<p>Added by {addedBy}</p> : null}
-			{image ? <img src={image} alt={title} /> : null }
-			<p className={`item-description ${showDescription?`show`:null}`}>{desc}</p>
-			<div className="btn-container">
-				<button onClick={this.showDescription} className="app-btn-filled toggle">Toggle Description</button>
-				<button onClick={()=>this.props.removeItem(this.props.index)} className="app-btn-filled remove">Remove &#10008;</button>
-			</div>
-		</li>
-		)
+		// when you click on li, set state to EDITING (this particular item ID)
+		// so need to find a way to get item ID to state... just get its props :)
+		// then if state editing is on, the h3s etc should be changed to input fields with values filled in
+		// then a submit button that sets editing back to null
+		
+		if (editing) {
+			return (
+				<li
+					className={`item-card ${active?`active`:null} ${seen?`seen-card`:null}`}
+					onBlur={this.notActive}
+					tabIndex='0'
+					>
+					<form className="editing-item" onSubmit={this.handleSubmit}>
+						<input className="title" name="title" type="text" placeholder={title} value={title}
+						onChange={this.handleChange}
+						/>
+						<input className="creator" name="creator" type="text" placeholder={creator} value={creator} 
+						onChange={this.handleChange}
+						/> 
+						<label htmlFor="priority">Priority</label>
+						<select name="priority">
+							<option value="3" >&#9733; &#9733; &#9733;</option>
+							<option value="2" >&#9733; &#9733;</option>
+							<option value="1" >&#9733;</option>
+						</select>
+						{ addedBy?<input name="addedBy" type="text" placeholder="Added by" value={addedBy} onChange={this.handleChange} />: null}
+						{image ? <img src={image} alt={title} /> : null }
+						<textarea className="desc" name="desc" placeholder="Desc" value={desc} onChange={this.handleChange} />
+						<button className="app-btn-filled" type="submit">Submit Changes</button>
+					</form>
+				</li>
+			)
+		} else {
+			return(
+				<li
+					onClick={this.isActive}
+					className={`item-card ${active?`active`:null} ${seen?`seen-card`:null}`}
+					tabIndex='0'
+					onBlur={this.notActive}
+					>
+					<h3>{title}</h3>
+					<h4>{creator}</h4>
+					<p>Priority: { stars } </p>
+					{ addedBy?<p>Added by {addedBy}</p> : null}
+					{image ? <img src={image} alt={title} /> : null }
+					<p className={`item-description ${showDescription?`show`:null}`}>{desc}</p>
+					<div className="btn-container">
+						<button onClick={this.showDescription} className="app-btn-filled toggle">Toggle Description</button>
+						<button onClick={()=>this.props.removeItem(this.props.index)} className="app-btn-filled remove">Remove &#10008;</button>
+					</div>
+				</li>
+			)
+		}
 	}
 }
 
