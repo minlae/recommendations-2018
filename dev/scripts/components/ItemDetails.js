@@ -44,6 +44,7 @@ class ItemDetails extends React.Component {
 	}
 
 	handleSubmit(event) {
+		event.preventDefault();
 		this.setState({ editing: false });
 	}
 
@@ -88,6 +89,8 @@ class ItemDetails extends React.Component {
 		// so need to find a way to get item ID to state... just get its props :)
 		// then if state editing is on, the h3s etc should be changed to input fields with values filled in
 		// then a submit button that sets editing back to null
+
+		// Question: The updating is super slow. Why? Is it my environment? 
 		
 		if (editing) {
 			return (
@@ -104,7 +107,7 @@ class ItemDetails extends React.Component {
 						onChange={this.handleChange}
 						/> 
 						<label htmlFor="priority">Priority</label>
-						<select name="priority">
+						<select onChange={this.handleChange} name="priority">
 							<option value="3" >&#9733; &#9733; &#9733;</option>
 							<option value="2" >&#9733; &#9733;</option>
 							<option value="1" >&#9733;</option>
