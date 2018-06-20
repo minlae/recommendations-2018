@@ -109,7 +109,6 @@ class Books extends React.Component {
 		// QUESTION: Maybe new version should be an actual reset? Or somehow prevent duplicates? Hmm logic to prevent duplicates would be nice.
 		if (this.state.samples) {
 			if (confirm('This may duplicate books. Is this ok?')) {
-				// removeDuplicates(sampleBooks);
 				this.setState({ books: sampleBooks });
 			} else {
 			    // Do nothing!
@@ -136,6 +135,7 @@ class Books extends React.Component {
 
 	sortPriority(order='asc') {
 		const books = Object.assign({}, this.state.books);
+		let toggle = !this.state.priority;
 		
 		// below gives us an array of objects
 		const bookArray = Object.keys(books).map( key => (
@@ -144,10 +144,13 @@ class Books extends React.Component {
 		
 		const sortedBooks = bookArray.sort(compareValues('priority', order));
 		
-		this.state.priority ? this.setState({ priority: false }) : null;
+		// this.state.priority ? this.setState({ priority: false }) : null;
 
 		// console.log( sortedBooks );
-		this.setState({ books: sortedBooks });			
+		this.setState({ 
+			books: sortedBooks,
+			priority: toggle
+		});			
 	}
 	// Also add a Sort "most recent" using index and "items uploaded by USER"
 
