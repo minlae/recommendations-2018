@@ -15,7 +15,6 @@ class BookResults extends React.Component {
 		this.addResult = this.addResult.bind(this);
 	}
 
-
 	isActive() {
 		this.setState({ active: true });
 	}
@@ -50,12 +49,11 @@ class BookResults extends React.Component {
 
 	render() {
 		const title = this.props.results.volumeInfo.title;
-		const author = this.props.results.volumeInfo.authors[0];
+		const author = this.props.results.volumeInfo.authors;
 		const image = this.props.results.volumeInfo.imageLinks;
 		const desc = this.props.results.volumeInfo.description;
 		// the imageLinks is sometimes undefined and can break the app so have to check if imageLinks is undefined first before we use the URL for smallThumbnail.
-		// add the other fields as well - not to render but to pass them as function arguments
-		// Now will have to make priority and "added by" editable! So that they can add it afterward. Or can put it in here as a form.
+		// Now will have to make priority and "added by" editable. So that they can add it afterward. Or can put it in here as a form.
 
 		return (
 			<li 
@@ -65,7 +63,7 @@ class BookResults extends React.Component {
 				onBlur={this.notActive}
 				>
 				{(title=== undefined) ? null : <h3>{title}</h3> }
-				{(author === undefined) ? null : <h4>{author}</h4> }
+				{(author === undefined) ? null : <h4>{author[0]}</h4> }
 				{(image === undefined) ? null : <img src={image.smallThumbnail} alt={title} /> }
 				<button onClick={() => this.addResult(title, author, image.smallThumbnail, desc)} className="app-btn-filled">Add To Books</button>
 			</li>
@@ -77,10 +75,10 @@ BookResults.propTypes = {
 	results: PropTypes.shape({
 		volumeInfo: PropTypes.shape({
 			title: PropTypes.string,
-			authors: PropTypes.oneOfType([
-				PropTypes.string,
-				PropTypes.array
-			]),
+			// authors: PropTypes.oneOfType([
+				// PropTypes.string,
+				// PropTypes.array
+			// ]),
 			imageLinks: PropTypes.object,
 			desc: PropTypes.string
 		})
